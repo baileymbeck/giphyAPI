@@ -8,7 +8,7 @@ var plantInput = "";
 
 
 // plant array
-var plants = ["monstera", "cactus", "snake plant", "daisy", "oak", "willow", "passion flower"];
+var plants = ["monstera", "cactus", "snake plant", "daisy flower", "oak tree", "willow+tree", "passion+flower"];
 
 // create new plant buttons
 function renderButtons() {
@@ -132,20 +132,17 @@ $(document).on("click", ".plant-btn", function() {
             // <img />
 
             // Setting the src attribute of the image to a property pulled off the result item
-            plantGif.attr("src", results[i].images.fixed_height_still.url);
+            plantGif.attr("src", results[i].images.fixed_height.url);
             // <img src="giphy.com/still"/>
 
             plantGif.attr("data-still", results[i].images.fixed_height_still.url);
             // <img src="giphy.com/still" data-still="giphy.com/still"/>
 
-            plantGif.attr("data-animate", results[i].images.fixed_height_still.url);
+            plantGif.attr("data-animate", results[i].images.fixed_height.url);
 
             // Appending the paragraph and image tag to the plantDiv
-            plantDiv.append(plantGif);
-
-            //
             plantDiv.append(ratingP);
-
+            plantDiv.append(plantGif);
 
             // Prependng the plantDiv to the HTML page in the "#planplant" div
             $("#plant-view").prepend(plantDiv);

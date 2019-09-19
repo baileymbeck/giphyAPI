@@ -1,4 +1,29 @@
 body{
     font-family: Georgia, 'Times New Roman', Times, serif;
     background-color: rgb(177, 255, 177);
+    font-size: 30px;
+    max-width: 100%;
+}
+h1{
+    font-size: 80px;
+}
+.plant-btn{
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#add-plant{
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border: solid;
+    border-width: 1px;
+    background-color: rgb(177, 255, 177);
+}
+
+#button-view{
+    display: flex;
+}
+#plant-view{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
