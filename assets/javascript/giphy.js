@@ -52,18 +52,14 @@ $(document).on("click", ".plant-btn", function() {
 
         // Looping through each result item
         for (let i = 0; i < results.length; i++) {
-
-            var giphyUrl = results[i].images.fixed_height_still.url;
-            console.log(giphyUrl);
-
+            // rating
             var giphyRating = results[i].rating
-            console.log(giphyRating);
-
+            
             // Creating and storing a div tag
             var plantDiv = $("<div>");
             // add class for css
-
             plantDiv.addClass(plantDiv);
+
             // Creating a paragraph tag with the result item's rating
             var ratingP = $("<p>").text("Rating: " + giphyRating);
             // group gifs
@@ -96,16 +92,16 @@ $(document).on("click", ".plant-btn", function() {
             // check value on click
             console.log(this);
             // set variable to alternate
-            var state = ["data-still", "data-animate"];
+            var state = ["data-still" || "data-animate"];
             // If the clicked image's state is still, update its src attribute to what its data-animate value is.
             // Then, set the image's data-state to animate
             // Else set src to the data-still value
             if (state === "data-still") {
               $(this).attr("src", $(this).attr("data-animate"));
-            //   $(this).attr("animate");
+                $(this).attr("animate");
             } else {
               $(this).attr("src", $(this).attr("data-still"));
-            //   $(this).attr("still");
+                $(this).attr("still");
             }
           });
     });
@@ -125,6 +121,8 @@ $("#add-plant").on("click", function(event) {
     // calling renderButtons which handles the processing of our plant array
        renderButtons();
        response();
+    // clear input field
+    $("form").trigger("reset");
     });
         
 
