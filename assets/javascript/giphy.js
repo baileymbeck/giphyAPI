@@ -87,25 +87,36 @@ $(document).on("click", ".plant-btn", function() {
             // Prependng the plantDiv to the HTML page in the "#planplant" div
             $("#plant-view").prepend(plantDiv);
         }
+
+        //              !!!
+        // I have an error below that won't allow me to alternate back to animated,
+        // can't figure out if the error is here or in variables above
+        //              !!!
+
         // funtion to start/stop gif cycle
         $(".plantGif").on("click", function() {
             // check value on click
             console.log(this);
             // set variable to alternate
-            var state = ["data-still" || "data-animate"];
+            var state = $(this).attr("data-state");
             // If the clicked image's state is still, update its src attribute to what its data-animate value is.
             // Then, set the image's data-state to animate
             // Else set src to the data-still value
-            if (state === "data-still") {
-              $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("animate");
-            } else {
-              $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("still");
-            }
+            
+                if (state === "data-still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                } else {
+                    console.log(this);
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                }
+            
           });
     });
 });
+
+
 // add plant button function
 $("#add-plant").on("click", function(event) {
 
