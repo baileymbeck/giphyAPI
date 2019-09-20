@@ -96,20 +96,38 @@ $(document).on("click", ".plant-btn", function() {
             // check value on click
             console.log(this);
             // set variable to alternate
-            var state = ["data-still" || "data-animate"];
+            var state = ["data-still", "data-animate"];
             // If the clicked image's state is still, update its src attribute to what its data-animate value is.
             // Then, set the image's data-state to animate
             // Else set src to the data-still value
-            if (state === "still") {
+            if (state === "data-still") {
               $(this).attr("src", $(this).attr("data-animate"));
-              $(this).attr("data-state", "animate");
+            //   $(this).attr("animate");
             } else {
               $(this).attr("src", $(this).attr("data-still"));
-              $(this).attr("data-state", "still");
+            //   $(this).attr("still");
             }
           });
     });
 });
+// add plant button function
+$("#add-plant").on("click", function(event) {
+
+    // event.preventDefault() prevents the form from trying to submit itself.
+        event.preventDefault();
+
+    // This line will grab the text from the input box
+        var plant = $("#plant-input").val().trim();
+
+    // The plant name from the textbox is then added to our array
+        plants.push(plant);
+
+    // calling renderButtons which handles the processing of our plant array
+       renderButtons();
+       response();
+    });
+        
+
 
 
 // Calling the renderButtons function at least once to display the initial list of plants
