@@ -8,7 +8,7 @@ var plantInput = "";
 
 
 // plant array
-var plants = ["monstera", "cactus", "snake plant", "daisy flower", "oak tree", "willow+tree", "passion+flower"];
+var plants = ["monstera", "cactus", "snake plant", "daisy flower", "oak tree", "willow tree", "passion flower"];
 
 // create new plant buttons
 function renderButtons() {
@@ -31,68 +31,6 @@ function renderButtons() {
         $("#buttons-view").append(a);
     };
 };
-
-// function to incorporate array and added plants
-function plantPics() {
-
-    // formula to build api request
-    plant = $(this).attr("data-type");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + plantInput + "&limit=10&offset=0&rating=G&lang=en";
-    console.log(queryURL)
-
-    // ajax pull request
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(queryURL);
-        console.log(response);
-
-        // storing the data from the AJAX request in the results variable
-        var results = response.data;
-
-        // Looping through each result item
-        for (let i = 0; i <= results.lenght; i++) {
-
-            // Creating and storing a div tag
-            var plantDiv = $("<div>");
-            rating = results[i].rating;
-
-            // Creating a paragraph tag with the result item's rating
-            var p = $("<p>").text("Rating: " + results[i].rating);
-
-            // Creating and storing an image tag
-            var plantGif = $("<img>");
-
-            // Setting the src attribute of the image to a property pulled off the result item
-            plantGif.attr("src", results[i].images.fixed_height_still.url);
-
-            // Appending the paragraph and image tag to the plantDiv
-            plantDiv.append(p);
-            plantDiv.append(plantGif);
-
-            // Prependng the plantDiv to the HTML page in the "#planplant" div
-            $("#plant-view").prepend(plantDiv);
-        }
-    });
-}
-
-// add plant button function
-$("#add-plant").on("click", function (event) {
-
-    // event.preventDefault() prevents the form from trying to submit itself.
-    event.preventDefault();
-
-    // This line will grab the text from the input box
-    var plant = $("#plant-input").val().trim();
-
-    // The plant name from the textbox is then added to our array
-    plants.push(plant);
-
-    // calling renderButtons which handles the processing of our plant array
-    renderButtons();
-    response();
-});
 
 // api buttons
 $(document).on("click", ".plant-btn", function() {
@@ -123,32 +61,56 @@ $(document).on("click", ".plant-btn", function() {
 
             // Creating and storing a div tag
             var plantDiv = $("<div>");
+            // add class for css
 
+            plantDiv.addClass(plantDiv);
             // Creating a paragraph tag with the result item's rating
             var ratingP = $("<p>").text("Rating: " + giphyRating);
+            // group gifs
+            var title = $("<p>").text(btnName);
 
             // Creating and storing an image tag
             var plantGif = $("<img>");
-            // <img />
+            // adding a class for btn function
+            plantGif.addClass("plantGif");
 
             // Setting the src attribute of the image to a property pulled off the result item
             plantGif.attr("src", results[i].images.fixed_height.url);
-            // <img src="giphy.com/still"/>
 
             plantGif.attr("data-still", results[i].images.fixed_height_still.url);
             // <img src="giphy.com/still" data-still="giphy.com/still"/>
 
             plantGif.attr("data-animate", results[i].images.fixed_height.url);
+            // <img src="giphy.com/animate" data-animate="giphy.com/animate"/>
 
             // Appending the paragraph and image tag to the plantDiv
+            plantDiv.append(title)
             plantDiv.append(ratingP);
             plantDiv.append(plantGif);
 
             // Prependng the plantDiv to the HTML page in the "#planplant" div
             $("#plant-view").prepend(plantDiv);
         }
+        // funtion to start/stop gif cycle
+        $(".plantGif").on("click", function() {
+            // check value on click
+            console.log(this);
+            // set variable to alternate
+            var state = ["data-still" || "data-animate"];
+            // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+            // Then, set the image's data-state to animate
+            // Else set src to the data-still value
+            if (state === "still") {
+              $(this).attr("src", $(this).attr("data-animate"));
+              $(this).attr("data-state", "animate");
+            } else {
+              $(this).attr("src", $(this).attr("data-still"));
+              $(this).attr("data-state", "still");
+            }
+          });
     });
 });
+
 
 // Calling the renderButtons function at least once to display the initial list of plants
 renderButtons();
